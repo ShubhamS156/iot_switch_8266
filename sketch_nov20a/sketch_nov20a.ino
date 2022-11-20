@@ -28,6 +28,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if(topicStr == mqtt_topic){
     int id = payload[0];
     int state = payload[1];
+    if(id >= NUM_CHANNEL){
+      Serial.println("Invalid id");
+      return;
+    }
+    if(state!=0 || state!=1){
+      Serial.println("Invalid state");
+      return;
+    }
+    
     updateSwitchState(id,state);
   }
   else{
